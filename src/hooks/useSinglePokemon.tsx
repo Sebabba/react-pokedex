@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { PokemonSpecie } from '../utils/types';
+import { useState, useEffect } from "react";
+import { Pokemon } from "../utils/types";
 
-export function usePokemon() {
-    const [data, setData] = useState<PokemonSpecie[]>([]);
+export function useSinglePokemon(pokemonId:number) {
+    const [pokemon, setPokemon] = useState<Pokemon>();
     const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -10,10 +10,10 @@ export function usePokemon() {
         async function fetchPokemon() {
             try {
                 setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/`);
-                if(!response.ok) throw new Error('Fetch error');
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId.toString()}`);
+                if(!response.ok) throw new Error('Fetch single pokemon error');
                 const json = await response.json();
-                setData(json.results);
+                setPokemon(json);
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     setError(err.message);
@@ -28,5 +28,5 @@ export function usePokemon() {
         fetchPokemon();
     }, [])
 
-    return { data, loading, error }
+    return { pokemon, loading, error }
 }

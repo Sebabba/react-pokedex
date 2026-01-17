@@ -1,0 +1,103 @@
+/* font sizes */
+h1 {
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+.body-lg {
+    font-size: 18px;
+}
+
+.body-md {
+    font-size: 16px;
+}
+
+.body-sm {
+    font-size: 14px;
+}
+
+.caption {
+    font-size: 12px;
+}
+
+/* background colors */
+.charcoal-100 {
+    background-color: #060606;
+}
+
+.charcoal-10 {
+    background-color: #ececef;
+}
+
+.charcoal-5 {
+    background-color: #f4f4f6;
+}
+
+.pure-white {
+    background-color: #ffffff;
+}
+
+/* attack types */
+.grass {
+    background-color: #9bcc50;
+    color: #060606;
+}
+
+.poison {
+    background-color: #b97fc9;
+    color: #ffffff;
+}
+
+.fire {
+    background-color: #fd7d24;
+    color: #ffffff;
+}
+
+.water {
+    background-color: #4592c4;
+    color: #060606;
+}
+
+.flying {
+    background-color: #3dc7ef, #bdb9b8;
+    color: #060606;
+}
+
+/* header */
+.navbar-brand {
+    font-weight: 600;
+}
+
+/* pokemon card */
+.pokemonCol {
+    padding: 8px 8px 8px 8px;
+}
+
+.pokemonCard {
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.pokemonCard img {
+    height: 220px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.pokemonId {
+    color: #767676;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    font-weight: 800
+
+}
+
+.pokemonName {
+    color: #060606;
+    margin-top: 4px;
+    text-transform: capitalize;
+    font-weight: 800;
+}

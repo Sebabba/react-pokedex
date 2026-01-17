@@ -1,13 +1,16 @@
 import './App.css';
 import PokemonContainer from './components/pokemonContainer';
+import Container from 'react-bootstrap/Container';
+import Header from './components/header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <Header />
+      <Container className="App">
         <PokemonContainer />
-      </header>
-    </div>
+      </Container>
+    </>
   );
 }
 
