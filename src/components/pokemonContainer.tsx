@@ -4,6 +4,7 @@ import { Col, Row } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PokemonContainer():JSX.Element {
 
@@ -11,6 +12,8 @@ export default function PokemonContainer():JSX.Element {
     const [visileCount , setVisibleCount] = useState<number>(20);
 
     const { allPokemon, loading, error } = usePokemon();
+
+    const navigate = useNavigate();
 
     const observer = useRef<IntersectionObserver | null>(null);
 
@@ -72,7 +75,13 @@ export default function PokemonContainer():JSX.Element {
                         />
                         </Col>
                         <Col sm={12} md={3}>
-                            <button className="surpriseButton" onClick={() => {}}>Surprise me</button>
+                            <button 
+                                className="surpriseButton" 
+                                onClick={() => {
+                                    const randomId = Math.floor(Math.random() * 151) + 1;
+                                    navigate(`/pokemon/${randomId}`);
+                                }}
+                            >Surprise me</button>
                         </Col>
                     </Row>
                 </Container>

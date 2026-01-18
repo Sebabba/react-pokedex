@@ -2,7 +2,6 @@ import { forwardRef } from "react";
 import { useSinglePokemon } from "../hooks/useSinglePokemon";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
 import { Link } from "react-router-dom";
 
 type CardProps = {
