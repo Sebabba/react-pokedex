@@ -3,7 +3,7 @@ import type { JSX } from "react";
 import { Col, Row } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
 import PokemonCard from "./pokemonCard";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 
 export default function PokemonContainer():JSX.Element {
 
@@ -32,7 +32,30 @@ export default function PokemonContainer():JSX.Element {
         },
         [loading, allPokemon.length]
     );
+
+    const filteredPokemon = useMemo(() => {
+        if(!name.trim()) return allPokemon;
+
+        const search = name.toLocaleLowerCase().trim();
+
+        return allPokemon.filter((pokemon, index) => {
+            const id = index + 1;
+            
+            // id search
+            if(!isNaN(Number(search.replace("#", "")))) {
+                return id === Number(search.replace("#", ""));
+            }
+
+            // name search
+            return pokemon.name.includes(search)
+        })
+    }, [allPokemon, name])
     
+    // reset "infinite scrolling" when search
+    useEffect(() => {
+        setVisibleCount(20);
+    }, [name])
+
     return (
         <>
             <div className="charcoal-10">
@@ -55,11 +78,13 @@ export default function PokemonContainer():JSX.Element {
 
             <Container>
                 <Row>
-                    {allPokemon.slice(0, visileCount).map((_, index) => {
-                        const isLast = index === visileCount - 1;
+                    {filteredPokemon.slice(0, visileCount).map((pokemon, index) => {
+                        const isLast = index === Math.min(visileCount, filteredPokemon.length) - 1;
+                        
+                        const id = Number(pokemon.url.split("/").at(-2));
 
                         return (
-                            <PokemonCard key={index + 1} pokemonId={index + 1} ref={isLast ? lastElementRef : undefined} />
+                            <PokemonCard key={pokemon.name} pokemonId={id} ref={isLast ? lastElementRef : undefined} />
                         );
                     })}
                 </Row>
