@@ -43,7 +43,11 @@ export default function PokemonDetails():JSX.Element {
         );
     }
 
-    if(pokemon){
+    if(pokemon && pokemonSpecie){
+
+        const englishTexts = pokemonSpecie.flavor_text_entries.filter(ft => ft.language.name === "en");
+        const firstEnglishText = englishTexts.length > 0 ? englishTexts[0].flavor_text : "No English text found";
+
         return(
             <Container>
                 <Row className="pt-3">
@@ -65,7 +69,7 @@ export default function PokemonDetails():JSX.Element {
                         <Stack gap={1}>
                             <div>
                                 <h3>Description</h3>
-                                <p><i>"{normalizeText(pokemonSpecie?.flavor_text_entries[0].flavor_text)}"</i></p>
+                                <p><i>"{normalizeText(firstEnglishText)}"</i></p>
                             </div>
                             <div>
                                 <h3>Genus</h3>
@@ -75,43 +79,7 @@ export default function PokemonDetails():JSX.Element {
                                 <h3>Types</h3>
                                 <div className="pokemonTypes">
                                     {pokemon.types.map((type) => {
-                                        switch(type.type.name) {
-                                            case "fire":
-                                                return(<span key={type.type.name} className="badge-custom fire">Fire</span>);
-                                            case "grass":
-                                                return(<span key={type.type.name} className="badge-custom grass">Grass</span>);
-                                            case "water":
-                                                return(<span key={type.type.name} className="badge-custom water">Water</span>);
-                                            case "poison":
-                                                return(<span key={type.type.name}  className="badge-custom poison">Poison</span>);
-                                            case "flying":
-                                                return(<span key={type.type.name} className="badge-custom flying">Flying</span>);
-                                            case "bug":
-                                                return(<span key={type.type.name} className="badge-custom bug">Bug</span>);
-                                            case "electric":
-                                                return(<span key={type.type.name} className="badge-custom electric">Electric</span>);
-                                            case "fairy":
-                                                return(<span key={type.type.name} className="badge-custom fairy">Fairy</span>);
-                                            case "psychic":
-                                                return(<span key={type.type.name} className="badge-custom psychic">Psychic</span>);
-                                            case "fighting":
-                                                return(<span key={type.type.name} className="badge-custom fighting">Fighting</span>);
-                                            case "rock":
-                                                return(<span key={type.type.name} className="badge-custom rock">Rock</span>);
-                                            case "ground":
-                                                return(<span key={type.type.name} className="badge-custom ground">Ground</span>);
-                                            case "steel":
-                                                return(<span key={type.type.name} className="badge-custom steel">Steel</span>);
-                                            case "ice":
-                                                return(<span key={type.type.name} className="badge-custom ice">Ice</span>);
-                                            case "ghost":
-                                                return(<span key={type.type.name} className="badge-custom ghost">Ghost</span>);
-                                            case "dragon":
-                                                return(<span key={type.type.name} className="badge-custom dragon">Dragon</span>);
-                                            default:
-                                                return(<span key={type.type.name} className="badge-custom">Normal</span>)
-                                        }
-
+                                        return(<span key={type.type.name} className={`text-capitalize badge-custom ${type.type.name}`}>{type.type.name}</span>);
                                     })}
                                 </div>
                             </div>
