@@ -1,49 +1,45 @@
 import { usePokemon } from "../hooks/usePokemon"
 import type { JSX } from "react";
-import { Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function PokemonContainer():JSX.Element {
 
-    const [page, setPage] = useState<number>(1);
-    const [offset, setOffset] = useState<number>(0);
+    const [name, setName] = useState<string>("")
 
-    const { data, loading, error } = usePokemon(offset);
-
-    const observer = useRef<IntersectionObserver | null>(null);
-
-    const lastElementRef = useCallback(
-        (node: HTMLDivElement | null) => {
-            if (loading) return;
-
-            if (observer.current) observer.current.disconnect();
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && offset < 151) { //da modificare
-                    setOffset(offset+20);
-                }
-            });
-
-            if (node) observer.current.observe(node);
-        },
-        [loading, offset],
-    );
+    const { allPokemon, loading, error } = usePokemon();
     
     return (
-        <Container>
-            <Row>
-                {data.map((item, index) => {
-                    if (index === data.length - 1) {
+        <>
+            <div className="charcoal-10">
+                <Container className="filterSection">
+                    <div>
+                        <b><p>Name or number</p></b>
+                        <input
+                        id="filter-input"
+                        className="search-input"
+                        type="text"
+                        placeholder="Pikachu"
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    </div>
+                    <div>
+                        <button className="surpriseButton" onClick={() => {}}>Surprise me</button>
+                    </div>
+                </Container>
+            </div>
+
+            <Container>
+                <Row>
+                    {allPokemon.map((item, index) => {
                         return(
-                            <PokemonCard pokemonId={index+1} ref={lastElementRef} />
+                            <PokemonCard key={index+1} pokemonId={index+1} />
                         )
-                    }
-                    return(
-                        <PokemonCard pokemonId={index+1} />
-                    )
-                })}
-            </Row>
-        </Container>
+                    })}
+                </Row>
+            </Container>
+        </>
     )
 }

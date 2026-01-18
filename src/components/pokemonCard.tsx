@@ -34,7 +34,6 @@ const PokemonCard = forwardRef<HTMLDivElement, CardProps>(
             <h3 className="pokemonName text-capitalize">{pokemon.name}</h3>
             <div className="pokemonTypes">
                 {pokemon.types.map((type) => {
-                    console.log(pokemon)
                     switch(type.type.name) {
                         case "fire":
                             return(<span className="badge-custom fire">Fire</span>);

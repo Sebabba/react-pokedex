@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
-import { PokemonSpecie } from '../utils/types';
+import { useEffect, useState } from "react";
+import { PokemonSpecie } from "../utils/types";
 
-export function usePokemon(offset: number) {
-  const [data, setData] = useState<PokemonSpecie[]>([]);
+export function usePokemon() {
+  const [allPokemon, setAllPokemon] = useState<PokemonSpecie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    let limit = ((offset + 40) > 151 ? 151 - offset : 40 )
 
-    async function fetchPokemon() {
+    async function fetchAllPokemon() {
       try {
         setLoading(true);
 
         const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=${limit}`
+          "https://pokeapi.co/api/v2/pokemon-species/?limit=151"
         );
 
         if (!response.ok) throw new Error("Fetch error");
@@ -23,9 +22,7 @@ export function usePokemon(offset: number) {
         const json = await response.json();
 
         if (!cancelled) {
-          setData(prev =>
-            offset === 0 ? json.results : [...prev, ...json.results]
-          );
+          setAllPokemon(json.results);
         }
       } catch (err) {
         if (!cancelled) {
@@ -36,12 +33,12 @@ export function usePokemon(offset: number) {
       }
     }
 
-    fetchPokemon();
+    fetchAllPokemon();
 
     return () => {
       cancelled = true;
     };
-  }, [offset]);
+  }, []);
 
-  return { data, loading, error };
+  return { allPokemon, loading, error };
 }
