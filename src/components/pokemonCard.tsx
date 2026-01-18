@@ -3,6 +3,7 @@ import { useSinglePokemon } from "../hooks/useSinglePokemon";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 
 type CardProps = {
   pokemonId: string | undefined;
@@ -12,17 +13,33 @@ const PokemonCard = forwardRef<HTMLDivElement, CardProps>(
   ({ pokemonId }, ref) => {
     const { pokemon, loading, error } = useSinglePokemon(pokemonId);
 
-    if (!pokemon) return null;
+    if(loading) {
+        return (
+            <Col xs={12} sm={6} md={4} lg={3} className="pokemonCol text-center">
+                <Spinner animation="border" role="status" />
+            </Col>
+        )
+    }
+
+    if (error) {
+        return (
+            <Col xs={12} sm={6} md={4} lg={3} className="pokemonCol text-center">
+                <p className="text-danger">Error: {error}</p>
+            </Col>
+        );
+    }
+
+    if (!pokemon) {
+        return (
+            <Col xs={12} sm={6} md={4} lg={3} className="pokemonCol text-center">
+                <p>Pokemon not found</p>
+            </Col>
+        );
+    }
+
 
     return (
-      <Col
-        ref={ref}
-        xs={12}
-        sm={6}
-        md={4}
-        lg={3}
-        className="pokemonCol"
-      >
+      <Col ref={ref} xs={12} sm={6} md={4} lg={3} className="pokemonCol">
         <Link to={`/pokemon/${pokemon.id}`} style={{textDecoration: "none"}}>
             <Card className="pokemonCard">
             <Card.Img

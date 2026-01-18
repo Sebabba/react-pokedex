@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { Spinner, Alert } from "react-bootstrap";
 
 export default function PokemonContainer():JSX.Element {
 
@@ -89,7 +90,21 @@ export default function PokemonContainer():JSX.Element {
 
             <Container>
                 <Row>
-                    {filteredPokemon.slice(0, visileCount).map((pokemon, index) => {
+                    {loading && (
+                        <Col xs={12} className="text-center my-4">
+                            <Spinner animation="border" role="status" />
+                        </Col>
+                    )}
+
+                    {error && (
+                        <Col xs={12} className="text-center my-4">
+                            <Alert variant="danger">{error}</Alert>
+                        </Col>
+                    )}
+
+
+                    {!loading && !error &&
+                    filteredPokemon.slice(0, visileCount).map((pokemon, index) => {
                         const isLast = index === Math.min(visileCount, filteredPokemon.length) - 1;
 
                         const id = pokemon.url.split("/").at(-2);

@@ -17,15 +17,31 @@ function normalizeText(text: string | undefined): string | null {
     } else {
         return null;
     }
-  
 }
-
 
 export default function PokemonDetails():JSX.Element {
 
     const { id } = useParams<{ id: string | undefined }>();
     const { pokemon, loading, error } = useSinglePokemon(id)
     const { pokemonSpecie, loadingSpecie, errorSpecie} = useSinglePokemonSpecie(id);
+
+    if (loading || loadingSpecie) {
+        return (
+            <Container className="text-center my-5">
+                <p>Loading Pokémon data...</p>
+            </Container>
+        )
+    }
+
+    if (error || errorSpecie) {
+        return (
+            <Container className="text-center my-5">
+                <p style={{ color: "red" }}>
+                    {error || errorSpecie || "Unknown error"}
+                </p>
+            </Container>
+        );
+    }
 
     if(pokemon){
         return(
