@@ -30,12 +30,13 @@ export default function PokemonDetails():JSX.Element {
     if(pokemon){
         return(
             <Container>
-                <Row>
+                <Row className="pt-3">
                     <Stack gap={0}>
-                        <h1 className="text-capitalize">{pokemon.name}</h1>
                         <p className="pokemonId caption">#{pokemon.id.toString().padStart(4, "0")}</p>
+                        <h1 className="text-capitalize">{pokemon.name}</h1>
                     </Stack>
                 </Row>
+                <hr className="charcoal-100" style={{border: "1px solid"}} />
                 <Row>
                     <Col xs={12} md={5}>
                         <Image 
