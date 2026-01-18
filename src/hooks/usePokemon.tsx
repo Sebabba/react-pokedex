@@ -1,32 +1,47 @@
 import { useState, useEffect } from 'react';
 import { PokemonSpecie } from '../utils/types';
 
-export function usePokemon() {
-    const [data, setData] = useState<PokemonSpecie[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-	const [error, setError] = useState<string | null>(null);
+export function usePokemon(offset: number) {
+  const [data, setData] = useState<PokemonSpecie[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        async function fetchPokemon() {
-            try {
-                setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/`);
-                if(!response.ok) throw new Error('Fetch error');
-                const json = await response.json();
-                setData(json.results);
-            } catch (err: unknown) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError(String(err));
-                }
-            } finally {
-                setLoading(false);
-            }
+  useEffect(() => {
+    let cancelled = false;
+    let limit = ((offset + 40) > 151 ? 151 - offset : 40 )
+
+    async function fetchPokemon() {
+      try {
+        setLoading(true);
+
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=${limit}`
+        );
+
+        if (!response.ok) throw new Error("Fetch error");
+
+        const json = await response.json();
+
+        if (!cancelled) {
+          setData(prev =>
+            offset === 0 ? json.results : [...prev, ...json.results]
+          );
         }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : String(err));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
 
-        fetchPokemon();
-    }, [])
+    fetchPokemon();
 
-    return { data, loading, error }
+    return () => {
+      cancelled = true;
+    };
+  }, [offset]);
+
+  return { data, loading, error };
 }

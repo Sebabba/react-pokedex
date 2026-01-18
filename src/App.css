@@ -41,9 +41,25 @@ h3 {
 }
 
 /* attack types */
+.badge-custom {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+  background-color: #6c757d;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  user-select: none;
+  margin-right: 6px;
+}
+
 .grass {
     background-color: #9bcc50;
-    color: #060606;
+    color: #ffffff;
 }
 
 .poison {
@@ -58,12 +74,67 @@ h3 {
 
 .water {
     background-color: #4592c4;
-    color: #060606;
+    color: #ffffff;
 }
 
 .flying {
-    background-color: #3dc7ef, #bdb9b8;
-    color: #060606;
+    background-color: #3dc7ef;
+    color: #ffffff;
+}
+
+.bug {
+    background-color: #91a119;
+    color: #ffffff;
+}
+
+.electric {
+    background-color: #fac000;
+    color: #ffffff;
+}
+
+.fairy {
+    background-color: #ef70ef;
+    color: #ffffff;
+}
+
+.psychic {
+    background-color: #ef4179;
+    color: #ffffff;
+}
+
+.fighting {
+    background-color: #ff8000;
+    color: #ffffff;
+}
+
+.rock {
+    background-color: #afa981;
+    color: #ffffff;
+}
+
+.ground {
+    background-color: #915121;
+    color: #ffffff;
+}
+
+.steel {
+    background-color: #60a1b8;
+    color: #ffffff;
+}
+
+.ice {
+    background-color: #3dcef3;
+    color: #ffffff;
+}
+
+.ghost {
+    background-color: #704170;
+    color: #ffffff;
+}
+
+.dragon {
+    background-color: #5060e1;
+    color: #ffffff;
 }
 
 /* header */

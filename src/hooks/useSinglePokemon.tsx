@@ -26,7 +26,7 @@ export function useSinglePokemon(pokemonId:number) {
         }
 
         fetchPokemon();
-    }, [])
+    }, [pokemonId])
 
     return { pokemon, loading, error }
 }

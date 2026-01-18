@@ -42,6 +42,14 @@ export type Pokemon = undefined | {
         versions: {}
     };
     stats: [];
-    types: [];
+    types: Type[];
     weight: number;
+}
+
+export type Type = {
+    slot: number;
+    type: {
+        name: string;
+        url: string;
+    }
 }
