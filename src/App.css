@@ -183,6 +183,25 @@ h3 {
     color: #ffffff;
 }
 
+.displayType {
+    width: 45px;
+    height: 45px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.displayType.selected {
+  background: black;
+  color: white;
+}
+
 /* pokemon card */
 .pokemonCol {
     padding: 8px 8px 8px 8px;

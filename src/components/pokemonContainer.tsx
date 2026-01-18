@@ -1,16 +1,18 @@
 import { usePokemon } from "../hooks/usePokemon"
 import type { JSX } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Alert } from "react-bootstrap";
+import { FaTh, FaBars } from "react-icons/fa";
 
 export default function PokemonContainer():JSX.Element {
 
     const [name, setName] = useState<string>("");
-    const [visileCount , setVisibleCount] = useState<number>(20);
+    const [visileCount, setVisibleCount] = useState<number>(20);
+    const [rowDisplay, setRowDisplay] = useState<boolean>(false);
 
     const { allPokemon, loading, error } = usePokemon();
 
@@ -87,6 +89,21 @@ export default function PokemonContainer():JSX.Element {
                     </Row>
                 </Container>
             </div>
+
+            <Container className="mt-4 mb-2">
+                <Row>
+                    <Stack gap={2} direction="horizontal">
+                        <button 
+                            className={`displayType ${!rowDisplay ? "selected" : ""}`}
+                            onClick={() => setRowDisplay((prev) => !prev)}
+                        >{FaTh({})}</button>
+                        <button 
+                            className={`displayType ${rowDisplay ? "selected" : ""}`}
+                            onClick={() => setRowDisplay((prev) => !prev)}
+                        >{FaBars({})}</button>
+                    </Stack>
+                </Row>
+            </Container>
 
             <Container>
                 <Row>
