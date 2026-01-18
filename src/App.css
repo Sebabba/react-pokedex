@@ -197,11 +197,11 @@ h3 {
     height: 220px;
     object-fit: contain;
     border-radius: 12px;
+    margin-bottom: 12px;
 }
 
 .pokemonId {
     color: #767676;
-    margin-top: 12px;
     margin-bottom: 0px;
     font-weight: 800
 
@@ -212,4 +212,13 @@ h3 {
     margin-top: 4px;
     text-transform: capitalize;
     font-weight: 800;
+}
+
+/* Pokemon Details */
+.pokemonDetailsImage {
+    max-height: 400px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 12px;
 }

@@ -1,7 +1,7 @@
 import { usePokemon } from "../hooks/usePokemon"
 import type { JSX } from "react";
-import { Col, Row, Stack } from "react-bootstrap";
-import Container from 'react-bootstrap/Container'
+import { Col, Row } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 
@@ -83,7 +83,7 @@ export default function PokemonContainer():JSX.Element {
                     {filteredPokemon.slice(0, visileCount).map((pokemon, index) => {
                         const isLast = index === Math.min(visileCount, filteredPokemon.length) - 1;
 
-                        const id = Number(pokemon.url.split("/").at(-2));
+                        const id = pokemon.url.split("/").at(-2);
 
                         return (
                             <PokemonCard key={pokemon.name} pokemonId={id} ref={isLast ? lastElementRef : undefined} />

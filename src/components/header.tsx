@@ -6,7 +6,7 @@ export default function Header() {
     return(
         <Navbar expand="lg" className='charcoal-100' data-bs-theme='dark'>
             <Container>
-                <Navbar.Brand>Pokedex</Navbar.Brand>
+                <Navbar.Brand href='/'>Pokedex</Navbar.Brand>
             </Container>
         </Navbar>
     )
