@@ -148,15 +148,6 @@ h3 {
     font-weight: 600;
 }
 
-.filterSection {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding-left: calc(var(--bs-gutter-x) * .5);
-    margin-left: auto;
-}
-
 .search-input {
     width: 100%;
     padding: 12px 12px 12px 12px;
@@ -165,6 +156,7 @@ h3 {
     border: 1.5px solid #a0a0a0;
     border-radius: 8px;
     outline: none;
+    margin-bottom: 24px;
 }
 
 .search-input:focus {
@@ -177,11 +169,13 @@ h3 {
     padding: 12px 12px 12px 12px;
     font-size: 16px;
     color: #060606;
-    border: 1.5px solid #060606;
+    border: 2px solid #060606;
     border-radius: 8px;
     outline: none;
-    background-color: #ffffff;
     transition: all 0.2s ease;
+    max-width: 150px;
+    margin-bottom: 24px;
+    font-weight: 600;
 }
 
 .surpriseButton:hover {

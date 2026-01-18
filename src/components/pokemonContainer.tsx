@@ -1,6 +1,6 @@
 import { usePokemon } from "../hooks/usePokemon"
 import type { JSX } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
 import PokemonCard from "./pokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
@@ -59,20 +59,22 @@ export default function PokemonContainer():JSX.Element {
     return (
         <>
             <div className="charcoal-10">
-                <Container className="filterSection">
-                    <div>
-                        <b><p>Name or number</p></b>
-                        <input
-                        id="filter-input"
-                        className="search-input"
-                        type="text"
-                        placeholder="Pikachu"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    </div>
-                    <div>
-                        <button className="surpriseButton" onClick={() => {}}>Surprise me</button>
-                    </div>
+                <Container>
+                    <Row className="align-items-end">
+                        <Col sm={12} md={4}>
+                            <b><p style={{marginTop: 24, marginBottom: 12}}>Name or number</p></b>
+                            <input
+                            id="filter-input"
+                            className="search-input"
+                            type="text"
+                            placeholder="Pikachu, #0025"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        </Col>
+                        <Col sm={12} md={3}>
+                            <button className="surpriseButton" onClick={() => {}}>Surprise me</button>
+                        </Col>
+                    </Row>
                 </Container>
             </div>
 
@@ -80,7 +82,7 @@ export default function PokemonContainer():JSX.Element {
                 <Row>
                     {filteredPokemon.slice(0, visileCount).map((pokemon, index) => {
                         const isLast = index === Math.min(visileCount, filteredPokemon.length) - 1;
-                        
+
                         const id = Number(pokemon.url.split("/").at(-2));
 
                         return (
