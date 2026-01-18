@@ -7,9 +7,31 @@ import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function PokemonContainer():JSX.Element {
 
-    const [name, setName] = useState<string>("")
+    const [name, setName] = useState<string>("");
+    const [visileCount , setVisibleCount] = useState<number>(20);
 
     const { allPokemon, loading, error } = usePokemon();
+
+    const observer = useRef<IntersectionObserver | null>(null);
+
+    const lastElementRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (loading) return;
+
+            if (observer.current) observer.current.disconnect();
+
+            observer.current = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    setVisibleCount((prev) => 
+                        Math.min(prev + 20, allPokemon.length)
+                    );
+                }
+            });
+
+            if(node) observer.current.observe(node);
+        },
+        [loading, allPokemon.length]
+    );
     
     return (
         <>
@@ -33,13 +55,15 @@ export default function PokemonContainer():JSX.Element {
 
             <Container>
                 <Row>
-                    {allPokemon.map((item, index) => {
-                        return(
-                            <PokemonCard key={index+1} pokemonId={index+1} />
-                        )
+                    {allPokemon.slice(0, visileCount).map((_, index) => {
+                        const isLast = index === visileCount - 1;
+
+                        return (
+                            <PokemonCard key={index + 1} pokemonId={index + 1} ref={isLast ? lastElementRef : undefined} />
+                        );
                     })}
                 </Row>
             </Container>
         </>
-    )
+    );
 }
