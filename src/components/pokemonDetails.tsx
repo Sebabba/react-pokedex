@@ -48,6 +48,9 @@ export default function PokemonDetails():JSX.Element {
         const englishTexts = pokemonSpecie.flavor_text_entries.filter(ft => ft.language.name === "en");
         const firstEnglishText = englishTexts.length > 0 ? englishTexts[0].flavor_text : "No English text found";
 
+        const englishGenera = pokemonSpecie.genera.filter(ge => ge.language.name === "en");
+        const firstEnglishGenus = englishGenera.length > 0 ? englishGenera[0].genus : "No English genus found";
+
         return(
             <Container>
                 <Row className="pt-3">
@@ -73,7 +76,7 @@ export default function PokemonDetails():JSX.Element {
                             </div>
                             <div>
                                 <h3>Genus</h3>
-                                <p>{pokemonSpecie?.genera[7].genus}</p>
+                                <p>{firstEnglishGenus}</p>
                             </div>
                             <div>
                                 <h3>Types</h3>

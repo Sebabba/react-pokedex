@@ -7,12 +7,16 @@ import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Alert } from "react-bootstrap";
 import { FaTh, FaBars } from "react-icons/fa";
+import Form from "react-bootstrap/Form";
+
+type SortType = "id-asc" | "id-desc" | "name-asc" | "name-desc";
 
 export default function PokemonContainer():JSX.Element {
 
     const [name, setName] = useState<string>("");
     const [visileCount, setVisibleCount] = useState<number>(20);
     const [rowDisplay, setRowDisplay] = useState<boolean>(false);
+    const [sortType, setSortType] = useState<SortType>("id-asc");
 
     const { allPokemon, loading, error } = usePokemon();
 
@@ -40,27 +44,50 @@ export default function PokemonContainer():JSX.Element {
     );
 
     const filteredPokemon = useMemo(() => {
-        if(!name.trim()) return allPokemon;
+        let result = [...allPokemon];
 
-        const search = name.toLocaleLowerCase().trim();
+        // FILTER
+        if (name.trim()) {
+            const search = name.toLowerCase().trim();
 
-        return allPokemon.filter((pokemon, index) => {
-            const id = index + 1;
-            
-            // id search
-            if(!isNaN(Number(search.replace("#", "")))) {
-                return id === Number(search.replace("#", ""));
+            result = result.filter((pokemon, index) => {
+                const id = index + 1;
+
+                if (!isNaN(Number(search.replace("#", "")))) {
+                    return id === Number(search.replace("#", ""));
+                }
+
+                return pokemon.name.includes(search);
+            });
+        }
+
+        // SORT
+        result.sort((a, b) => {
+            const idA = Number(a.url.split("/").at(-2));
+            const idB = Number(b.url.split("/").at(-2));
+
+            switch (sortType) {
+                case "id-asc":
+                    return idA - idB;
+                case "id-desc":
+                    return idB - idA;
+                case "name-asc":
+                    return a.name.localeCompare(b.name);
+                case "name-desc":
+                    return b.name.localeCompare(a.name);
+                default:
+                    return 0;
             }
+        });
 
-            // name search
-            return pokemon.name.includes(search)
-        })
-    }, [allPokemon, name])
+        return result;
+    }, [allPokemon, name, sortType]);
+
     
     // reset "infinite scrolling" when search
     useEffect(() => {
         setVisibleCount(20);
-    }, [name])
+    }, [name, sortType])
 
     return (
         <>
@@ -101,6 +128,13 @@ export default function PokemonContainer():JSX.Element {
                             className={`displayType ${rowDisplay ? "selected" : ""}`}
                             onClick={() => setRowDisplay((prev) => !prev)}
                         >{FaBars({})}</button>
+                        <span className="me-2 d-none d-md-inline ms-auto" style={{fontWeight: 600}}>Sort by</span>
+                        <Form.Select aria-label="Def" className="selectOrder" value={sortType} onChange={(e) => setSortType(e.target.value as SortType)}>
+                            <option value="id-asc">Lowest number (first)</option>
+                            <option value="id-desc">Highest number (first)</option>
+                            <option value="name-asc">Name (A → Z)</option>
+                            <option value="name-desc">Name (Z → A)</option>
+                        </Form.Select>
                     </Stack>
                 </Row>
             </Container>

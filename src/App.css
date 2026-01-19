@@ -48,19 +48,19 @@ h3 {
 
 /* attack types */
 .badge-custom {
-  display: inline-block;
-  padding: 0.25em 0.6em;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #fff;
-  background-color: #6c757d;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
-  user-select: none;
-  margin-right: 6px;
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #fff;
+    background-color: #6c757d;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    user-select: none;
+    margin-right: 6px;
 }
 
 .grass {
@@ -160,8 +160,8 @@ h3 {
 }
 
 .search-input:focus {
-  border-color: #000;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-color: #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .surpriseButton {
@@ -198,8 +198,23 @@ h3 {
 }
 
 .displayType.selected {
-  background: black;
-  color: white;
+    background: black;
+    color: white;
+}
+
+.selectOrder {
+    max-width: 400px;
+    height: 100%;
+    font-size: 16px;
+    color: #666;
+    border: 1.5px solid #a0a0a0;
+    border-radius: 8px;
+    outline: none;
+}
+
+.selectOrder:focus {
+    border-color: #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 /* pokemon card */
