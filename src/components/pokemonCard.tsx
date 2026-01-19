@@ -65,7 +65,7 @@ const PokemonCard = forwardRef<HTMLDivElement, CardProps>(
     } else {
         return(
             <Col ref={ref} xs={12}>
-                <div className="rowDisplay-card d-flex flex-column flex-sm-row mb-2">
+                <div className="rowDisplay-card d-flex flex-column flex-sm-row my-2">
                     <Image 
                         src={pokemon.sprites.other["official-artwork"].front_default}
                         className="charcoal-5 rowDisplay-img"
