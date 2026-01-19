@@ -17,6 +17,20 @@ A live preview of the project can be seen [Here](https://react-pokedex-navy-mu.v
 - **Frontend** - Responsive UI built with TypeScript
 - **Testing** - Tests made with Jest
 
+## Main Dependencies (required for the app to work)
+- react
+- react-dom
+- react-router-dom
+- react-icons
+- bootstrap
+- react-bootstrap
+
+## Dev Dependencies
+- typescript
+- @types/react
+- @types/react-dom
+- @types/jest
+
 ---
 
 ## Quick Start
