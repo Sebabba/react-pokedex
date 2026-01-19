@@ -127,7 +127,7 @@ export default function PokemonContainer():JSX.Element {
                         const id = pokemon.url.split("/").at(-2);
 
                         return (
-                            <PokemonCard key={pokemon.name} pokemonId={id} ref={isLast ? lastElementRef : undefined} />
+                            <PokemonCard key={pokemon.name} pokemonId={id} rowDisplay={rowDisplay} ref={isLast ? lastElementRef : undefined} />
                         );
                     })}
                 </Row>

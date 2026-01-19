@@ -226,6 +226,26 @@ h3 {
 
 }
 
+.rowDisplay-card {
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+}
+
+.rowDisplay-img {
+    height: 100px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+@media (min-width: 576px) {
+    .rowDisplay-img {
+        width: auto;
+        height: 100px;
+    }
+}
+
 .pokemonName {
     color: #060606;
     margin-top: 4px;
