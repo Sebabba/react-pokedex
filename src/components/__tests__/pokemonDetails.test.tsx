@@ -1,5 +1,3 @@
-// src/components/__tests__/PokemonDetails.test.tsx
-
 import { render, screen } from "@testing-library/react";
 import PokemonDetails from "../pokemonDetails";
 
@@ -21,7 +19,6 @@ import { useSinglePokemonSpecie } from "../../hooks/useSinglePokemonSpecie";
 describe("PokemonDetails Page", () => {
 
   test("renders Pokemon details correctly", () => {
-
     (useSinglePokemon as jest.Mock).mockReturnValue({
       pokemon: {
         id: 25,
@@ -45,9 +42,18 @@ describe("PokemonDetails Page", () => {
     (useSinglePokemonSpecie as jest.Mock).mockReturnValue({
       pokemonSpecie: {
         flavor_text_entries: [
-          { flavor_text: "A strange seed was\nplanted on its back at birth.\fThe plant sprouts and grows with this POKéMON." },
+          {
+            flavor_text:
+              "A strange seed was\nplanted on its back at birth.\fThe plant sprouts and grows with this POKéMON.",
+            language: { name: "en" },
+          },
         ],
-        genera: Array(7).fill({ genus: "Placeholder" }).concat([{ genus: "Mouse Pokémon" }]), // genera[7]
+        genera: [
+          {
+            genus: "Mouse Pokémon",
+            language: { name: "en" },
+          },
+        ],
       },
       loadingSpecie: false,
       errorSpecie: null,
@@ -55,14 +61,24 @@ describe("PokemonDetails Page", () => {
 
     render(<PokemonDetails />);
 
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(/pikachu/i);
+    expect(
+      screen.getByRole("heading", { level: 1 })
+    ).toHaveTextContent(/pikachu/i);
+
     expect(screen.getByText("#0025")).toBeInTheDocument();
-    expect(screen.getByText(/A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON./i)).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        /A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON./i
+      )
+    ).toBeInTheDocument();
+
     expect(screen.getByText("Mouse Pokémon")).toBeInTheDocument();
 
-    expect(screen.getByText("Electric")).toBeInTheDocument();
-    expect(screen.getByText("Fairy")).toBeInTheDocument();
+    expect(screen.getByText(/electric/i)).toBeInTheDocument();
+    expect(screen.getByText(/fairy/i)).toBeInTheDocument();
   });
+
 
   test("renders fallback message when no pokemon", () => {
     (useSinglePokemon as jest.Mock).mockReturnValue({
