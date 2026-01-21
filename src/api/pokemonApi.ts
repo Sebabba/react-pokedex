@@ -1,4 +1,4 @@
-import { PokemonSpecie, Pokemon, PokemonSpecieDetails } from "../utils/types";
+import { PokemonSpecies, Pokemon, PokemonSpeciesDetails } from "../utils/types";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
 
@@ -6,7 +6,7 @@ type ListResponse = {
     count: number;
     next: string | null;
     previous: string | null;
-    results: PokemonSpecie[]
+    results: PokemonSpecies[]
 }
 
 async function fetchJson<T>(url: string): Promise<T> {
@@ -33,9 +33,9 @@ export function getPokemon(pokemonId: string | undefined) {
     return pokemon;
 }
 
-export function getPokemonSpecie(pokemonId: string | undefined){
-    const pokemonSpecie = fetchJson<PokemonSpecieDetails>(
+export function getPokemonSpecies(pokemonId: string | undefined){
+    const PokemonSpecies = fetchJson<PokemonSpeciesDetails>(
         `${BASE_URL}/pokemon-species/${pokemonId}`
     )
-    return pokemonSpecie;
+    return PokemonSpecies;
 }

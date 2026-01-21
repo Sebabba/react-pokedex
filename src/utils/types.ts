@@ -1,9 +1,9 @@
-export type PokemonSpecie = {
+export type PokemonSpecies = {
     name: string;
     url: string;
 }
 
-export type Pokemon = undefined | {
+export type Pokemon = {
     abilities: [];
     cries: {
         latest: string;
@@ -21,7 +21,7 @@ export type Pokemon = undefined | {
     order: number;
     past_abilities: [];
     past_types: [];
-    species: PokemonSpecie;
+    species: PokemonSpecies;
     sprites: {
         back_default: string | null;
         back_female: string | null;
@@ -54,7 +54,7 @@ export type Type = {
     }
 }
 
-export type PokemonSpecieDetails = {
+export type PokemonSpeciesDetails = {
     base_happines: number;
     capture_rate: number;
     color: {

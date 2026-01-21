@@ -5,8 +5,8 @@ jest.mock("../../hooks/useSinglePokemon", () => ({
   useSinglePokemon: jest.fn(),
 }));
 
-jest.mock("../../hooks/useSinglePokemonSpecie", () => ({
-  useSinglePokemonSpecie: jest.fn(),
+jest.mock("../../hooks/useSinglePokemonSpecies", () => ({
+  useSinglePokemonSpecies: jest.fn(),
 }));
 
 jest.mock("react-router-dom", () => ({
@@ -14,7 +14,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 import { useSinglePokemon } from "../../hooks/usePokemon";
-import { useSinglePokemonSpecie } from "../../hooks/usePokemonSpecie";
+import { useSinglePokemonSpecies } from "../../hooks/usePokemonSpecies";
 
 describe("PokemonDetails Page", () => {
 
@@ -39,8 +39,8 @@ describe("PokemonDetails Page", () => {
       error: null,
     });
 
-    (useSinglePokemonSpecie as jest.Mock).mockReturnValue({
-      pokemonSpecie: {
+    (useSinglePokemonSpecies as jest.Mock).mockReturnValue({
+      PokemonSpecies: {
         flavor_text_entries: [
           {
             flavor_text:
@@ -87,8 +87,8 @@ describe("PokemonDetails Page", () => {
       error: null,
     });
 
-    (useSinglePokemonSpecie as jest.Mock).mockReturnValue({
-      pokemonSpecie: null,
+    (useSinglePokemonSpecies as jest.Mock).mockReturnValue({
+      PokemonSpecies: null,
       loadingSpecie: false,
       errorSpecie: null,
     });

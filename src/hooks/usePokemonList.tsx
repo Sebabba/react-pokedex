@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PokemonSpecie } from "../utils/types";
+import { PokemonSpecies } from "../utils/types";
 import { getPokemonList } from "../api/pokemonApi";
 
 export function usePokemonList() {
-  const [allPokemon, setAllPokemon] = useState<PokemonSpecie[]>([]);
+  const [allPokemon, setAllPokemon] = useState<PokemonSpecies[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

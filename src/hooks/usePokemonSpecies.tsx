@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { PokemonSpecieDetails } from "../utils/types";
-import { getPokemonSpecie } from "../api/pokemonApi";
+import { PokemonSpeciesDetails } from "../utils/types";
+import { getPokemonSpecies } from "../api/pokemonApi";
 
-export function usePokemonSpecie(pokemonId:string | undefined){
-    const [pokemonSpecie, setPokemonSpecie] = useState<PokemonSpecieDetails>();
+export function usePokemonSpecies(pokemonId:string | undefined){
+    const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpeciesDetails>();
     const [loadingSpecie, setLoading] = useState<boolean>(false);
 	const [errorSpecie, setError] = useState<string | null>(null);
     
     useEffect(() => {
-        async function fetchPokemonSpecie() {
+        async function fetchPokemonSpecies() {
             try{
                 setLoading(true);
-                const data = await getPokemonSpecie(pokemonId)
-                setPokemonSpecie(data);
+                const data = await getPokemonSpecies(pokemonId)
+                setPokemonSpecies(data);
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     setError(err.message);
@@ -24,8 +24,8 @@ export function usePokemonSpecie(pokemonId:string | undefined){
             }
         }
         
-        fetchPokemonSpecie();
+        fetchPokemonSpecies();
     }, [pokemonId])
 
-    return { pokemonSpecie, loadingSpecie, errorSpecie }
+    return { pokemonSpecies, loadingSpecie, errorSpecie }
 }
