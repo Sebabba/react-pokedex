@@ -8,12 +8,14 @@ export function usePokemonSpecies(pokemonId:string | undefined){
 	const [errorSpecie, setError] = useState<string | null>(null);
     
     useEffect(() => {
+        const controller = new AbortController()
         async function fetchPokemonSpecies() {
             try{
                 setLoading(true);
-                const data = await getPokemonSpecies(pokemonId)
+                const data = await getPokemonSpecies(pokemonId, controller.signal)
                 setPokemonSpecies(data);
             } catch (err: unknown) {
+                if ((err as any)?.name === "AbortError") return;
                 if (err instanceof Error) {
                     setError(err.message);
                 } else {

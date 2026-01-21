@@ -9,8 +9,8 @@ type ListResponse = {
     results: PokemonSpecies[]
 }
 
-async function fetchJson<T>(url: string): Promise<T> {
-    const res = await fetch(url);
+async function fetchJson<T>(url: string, signal?: AbortSignal): Promise<T> {
+    const res = await fetch(url, {signal});
     if(!res.ok) {
         throw new Error(`HTTP ${res.status} - ${res.statusText}`);
     }
@@ -19,23 +19,26 @@ async function fetchJson<T>(url: string): Promise<T> {
     return json;
 }
 
-export function getPokemonList() {
+export function getPokemonList(signal: AbortSignal) {
     const allPokemon = fetchJson<ListResponse>(
-        `${BASE_URL}/pokemon-species/?limit=151`
+        `${BASE_URL}/pokemon-species/?limit=151`,
+        signal
     );
     return allPokemon;
 }
 
-export function getPokemon(pokemonId: string | undefined) {
+export function getPokemon(pokemonId: string | undefined, signal: AbortSignal) {
     const pokemon = fetchJson<Pokemon>(
-        `${BASE_URL}/pokemon/${pokemonId}`
+        `${BASE_URL}/pokemon/${pokemonId}`,
+        signal
     )
     return pokemon;
 }
 
-export function getPokemonSpecies(pokemonId: string | undefined){
+export function getPokemonSpecies(pokemonId: string | undefined, signal: AbortSignal){
     const PokemonSpecies = fetchJson<PokemonSpeciesDetails>(
-        `${BASE_URL}/pokemon-species/${pokemonId}`
+        `${BASE_URL}/pokemon-species/${pokemonId}`,
+        signal
     )
     return PokemonSpecies;
 }

@@ -8,29 +8,26 @@ export function usePokemonList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-
+    const controller = new AbortController()
     async function fetchAllPokemon() {
       try {
         setLoading(true);
-        const data = await getPokemonList()
+        setError(null);
+        const data = await getPokemonList(controller.signal)
 
-        if (!cancelled) {
           setAllPokemon(data.results);
-        }
       } catch (err) {
-        if (!cancelled) {
+          if ((err as any)?.name === "AbortError") return;
           setError(err instanceof Error ? err.message : String(err));
-        }
       } finally {
-        if (!cancelled) setLoading(false);
+        setLoading(false);
       }
     }
 
     fetchAllPokemon();
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
   }, []);
 

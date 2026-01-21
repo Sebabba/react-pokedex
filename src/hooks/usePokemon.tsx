@@ -2,18 +2,28 @@ import { useState, useEffect } from "react";
 import { Pokemon } from "../utils/types";
 import { getPokemon } from "../api/pokemonApi";
 
-export function usePokemon(pokemonId:string | undefined) {
-    const [pokemon, setPokemon] = useState<Pokemon | null>();
+type UsePokemonResult = {
+    pokemon: Pokemon | null;
+    loading: boolean;
+    error: string | null;
+}
+
+export function usePokemon(pokemonId:string | undefined): UsePokemonResult {
+    const [pokemon, setPokemon] = useState<Pokemon | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         async function fetchPokemon() {
             try {
                 setLoading(true);
-                const data = await getPokemon(pokemonId);
+                setError(null);
+
+                const data = await getPokemon(pokemonId, controller.signal);
                 setPokemon(data);
             } catch (err: unknown) {
+                if ((err as any)?.name === "AbortError") return;
                 if (err instanceof Error) {
                     setError(err.message);
                 } else {
@@ -32,6 +42,8 @@ export function usePokemon(pokemonId:string | undefined) {
         }
 
         fetchPokemon();
+
+        return () => controller.abort();
     }, [pokemonId])
 
     return { pokemon, loading, error }
