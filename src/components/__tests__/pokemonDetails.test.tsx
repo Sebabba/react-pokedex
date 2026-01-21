@@ -13,8 +13,8 @@ jest.mock("react-router-dom", () => ({
   useParams: () => ({ id: "25" }),
 }));
 
-import { useSinglePokemon } from "../../hooks/useSinglePokemon";
-import { useSinglePokemonSpecie } from "../../hooks/useSinglePokemonSpecie";
+import { useSinglePokemon } from "../../hooks/usePokemon";
+import { useSinglePokemonSpecie } from "../../hooks/usePokemonSpecie";
 
 describe("PokemonDetails Page", () => {
 

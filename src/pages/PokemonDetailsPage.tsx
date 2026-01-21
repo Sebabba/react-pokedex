@@ -1,11 +1,11 @@
-import { useSinglePokemon } from "../hooks/useSinglePokemon";
+import { usePokemon } from "../hooks/usePokemon";
 import type { JSX } from "react";
 import { Col, Row } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import { useParams } from "react-router-dom";
 import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
-import { useSinglePokemonSpecie } from "../hooks/useSinglePokemonSpecie";
+import { usePokemonSpecie } from "../hooks/usePokemonSpecie";
 
 function normalizeText(text: string | undefined): string | null {
     if(text){
@@ -22,8 +22,8 @@ function normalizeText(text: string | undefined): string | null {
 export default function PokemonDetailsPage():JSX.Element {
 
     const { id } = useParams<{ id: string | undefined }>();
-    const { pokemon, loading, error } = useSinglePokemon(id)
-    const { pokemonSpecie, loadingSpecie, errorSpecie} = useSinglePokemonSpecie(id);
+    const { pokemon, loading, error } = usePokemon(id)
+    const { pokemonSpecie, loadingSpecie, errorSpecie} = usePokemonSpecie(id);
 
     if (loading || loadingSpecie) {
         return (

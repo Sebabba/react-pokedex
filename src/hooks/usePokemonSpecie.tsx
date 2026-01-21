@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { PokemonSpecieDetails } from "../utils/types";
 import { getPokemonSpecie } from "../api/pokemonApi";
 
-export function useSinglePokemonSpecie(pokemonId:string | undefined){
+export function usePokemonSpecie(pokemonId:string | undefined){
     const [pokemonSpecie, setPokemonSpecie] = useState<PokemonSpecieDetails>();
     const [loadingSpecie, setLoading] = useState<boolean>(false);
 	const [errorSpecie, setError] = useState<string | null>(null);

@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { useSinglePokemon } from "../hooks/useSinglePokemon";
+import { usePokemon } from "../hooks/usePokemon";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ type CardProps = {
 
 const PokemonCard = forwardRef<HTMLDivElement, CardProps>(
   ({ pokemonId, rowDisplay }, ref) => {
-    const { pokemon, loading, error } = useSinglePokemon(pokemonId);
+    const { pokemon, loading, error } = usePokemon(pokemonId);
 
     if(loading) {
         return (
