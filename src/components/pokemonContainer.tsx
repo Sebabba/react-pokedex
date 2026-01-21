@@ -1,8 +1,8 @@
-import { usePokemon } from "../hooks/usePokemon"
+import { usePokemonList } from "../hooks/usePokemonList"
 import type { JSX } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
-import PokemonCard from "./pokemonCard";
+import PokemonCard from "./PokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Alert } from "react-bootstrap";
@@ -18,7 +18,7 @@ export default function PokemonContainer():JSX.Element {
     const [rowDisplay, setRowDisplay] = useState<boolean>(false);
     const [sortType, setSortType] = useState<SortType>("id-asc");
 
-    const { allPokemon, loading, error } = usePokemon();
+    const { allPokemon, loading, error } = usePokemonList();
 
     const navigate = useNavigate();
 

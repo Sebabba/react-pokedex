@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Pokemon } from "../utils/types";
+import { getPokemon } from "../api/pokemonApi";
 
 export function useSinglePokemon(pokemonId:string | undefined) {
     const [pokemon, setPokemon] = useState<Pokemon>();
@@ -10,10 +11,8 @@ export function useSinglePokemon(pokemonId:string | undefined) {
         async function fetchPokemon() {
             try {
                 setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-                if(!response.ok) throw new Error('Fetch single pokemon error');
-                const json = await response.json();
-                setPokemon(json);
+                const data = await getPokemon(pokemonId);
+                setPokemon(data);
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     setError(err.message);

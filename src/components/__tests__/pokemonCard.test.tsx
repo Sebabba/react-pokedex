@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import PokemonCard from "../pokemonCard";
+import PokemonCard from "../PokemonCard";
 
 jest.mock("react-router-dom", () => ({
   Link: ({ children }: { children: React.ReactNode }) => <>{children}</>,
@@ -30,7 +30,7 @@ jest.mock("../../hooks/useSinglePokemon", () => ({
 
 
 test("renders pokemon card with correct id", () => {
-  render(<PokemonCard pokemonId="25" />);
+  render(<PokemonCard pokemonId="25" rowDisplay={false}/>);
   expect(screen.getByText("#0025")).toBeInTheDocument();
   expect(screen.getByText(/pikachu/i)).toBeInTheDocument();
 });

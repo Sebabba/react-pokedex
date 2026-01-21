@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import PokemonDetails from "../pokemonDetails";
+import PokemonDetailsPage from "../../pages/PokemonDetailsPage";
 
 jest.mock("../../hooks/useSinglePokemon", () => ({
   useSinglePokemon: jest.fn(),
@@ -59,7 +59,7 @@ describe("PokemonDetails Page", () => {
       errorSpecie: null,
     });
 
-    render(<PokemonDetails />);
+    render(<PokemonDetailsPage />);
 
     expect(
       screen.getByRole("heading", { level: 1 })
@@ -92,7 +92,7 @@ describe("PokemonDetails Page", () => {
       loadingSpecie: false,
       errorSpecie: null,
     });
-    render(<PokemonDetails />);
+    render(<PokemonDetailsPage />);
 
     expect(screen.getByText(/No Pokemon Selected/i)).toBeInTheDocument();
   });
