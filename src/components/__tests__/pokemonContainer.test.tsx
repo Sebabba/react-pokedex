@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import PokemonContainer from "../pokemonContainer";
+import PokemonContainer from "../PokemonContainer";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 

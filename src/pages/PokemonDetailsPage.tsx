@@ -19,7 +19,7 @@ function normalizeText(text: string | undefined): string | null {
     }
 }
 
-export default function PokemonDetails():JSX.Element {
+export default function PokemonDetailsPage():JSX.Element {
 
     const { id } = useParams<{ id: string | undefined }>();
     const { pokemon, loading, error } = useSinglePokemon(id)

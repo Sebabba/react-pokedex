@@ -2,7 +2,7 @@ import { usePokemon } from "../hooks/usePokemon"
 import type { JSX } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
-import PokemonCard from "./pokemonCard";
+import PokemonCard from "./PokemonCard";
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Alert } from "react-bootstrap";
