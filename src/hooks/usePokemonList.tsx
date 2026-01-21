@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { PokemonSpecie } from "../utils/types";
+import { getPokemonList } from "../api/pokemonApi";
 
-export function usePokemon() {
+export function usePokemonList() {
   const [allPokemon, setAllPokemon] = useState<PokemonSpecie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -12,17 +13,10 @@ export function usePokemon() {
     async function fetchAllPokemon() {
       try {
         setLoading(true);
-
-        const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon-species/?limit=151"
-        );
-
-        if (!response.ok) throw new Error("Fetch error");
-
-        const json = await response.json();
+        const data = await getPokemonList()
 
         if (!cancelled) {
-          setAllPokemon(json.results);
+          setAllPokemon(data.results);
         }
       } catch (err) {
         if (!cancelled) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { PokemonSpecieDetails } from "../utils/types";
+import { getPokemonSpecie } from "../api/pokemonApi";
 
 export function useSinglePokemonSpecie(pokemonId:string | undefined){
     const [pokemonSpecie, setPokemonSpecie] = useState<PokemonSpecieDetails>();
@@ -10,11 +11,8 @@ export function useSinglePokemonSpecie(pokemonId:string | undefined){
         async function fetchPokemonSpecie() {
             try{
                 setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`);
-
-                if(!response.ok) throw new Error('Fetch single pokemon specie error');
-                const json = await response.json();
-                setPokemonSpecie(json);
+                const data = await getPokemonSpecie(pokemonId)
+                setPokemonSpecie(data);
             } catch (err: unknown) {
                 if (err instanceof Error) {
                     setError(err.message);
