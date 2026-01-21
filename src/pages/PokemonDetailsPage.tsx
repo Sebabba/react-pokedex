@@ -6,24 +6,23 @@ import { useParams } from "react-router-dom";
 import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
 import { usePokemonSpecie } from "../hooks/usePokemonSpecie";
-
-function normalizeText(text: string | undefined): string | null {
-    if(text){
-        return text
-            .replace(/\f/g, " ")   // rimuove form-feed
-            .replace(/\n/g, " ")   // sostituisce newline
-            .replace(/\s+/g, " ")  // normalizza spazi
-            .trim();
-    } else {
-        return null;
-    }
-}
+import { pickEnglishEntry } from "../utils/pickEnglishEntry";
+import { normalizeText } from "../utils/normalizeText";
 
 export default function PokemonDetailsPage():JSX.Element {
 
     const { id } = useParams<{ id: string | undefined }>();
+
     const { pokemon, loading, error } = usePokemon(id)
     const { pokemonSpecie, loadingSpecie, errorSpecie} = usePokemonSpecie(id);
+
+    if(!id) {
+        return (
+            <Container className="text-center my-5">
+                <p>Missing Pokémon identifier.</p>
+            </Container>
+        )
+    }
 
     if (loading || loadingSpecie) {
         return (
@@ -45,11 +44,11 @@ export default function PokemonDetailsPage():JSX.Element {
 
     if(pokemon && pokemonSpecie){
 
-        const englishTexts = pokemonSpecie.flavor_text_entries.filter(ft => ft.language.name === "en");
-        const firstEnglishText = englishTexts.length > 0 ? englishTexts[0].flavor_text : "No English text found";
+        const {englishText, englishGenus} = pickEnglishEntry(pokemonSpecie)
 
-        const englishGenera = pokemonSpecie.genera.filter(ge => ge.language.name === "en");
-        const firstEnglishGenus = englishGenera.length > 0 ? englishGenera[0].genus : "No English genus found";
+        const imageUrl = pokemon.sprites.other?.["official-artwork"]?.front_default
+            ?? pokemon.sprites.front_default
+            ?? undefined
 
         return(
             <Container>
@@ -63,7 +62,7 @@ export default function PokemonDetailsPage():JSX.Element {
                 <Row>
                     <Col xs={12} md={5}>
                         <Image 
-                            src={pokemon.sprites.other["official-artwork"].front_default}
+                            src={imageUrl}
                             className="charcoal-5 pokemonDetailsImage"
                             fluid
                         />
@@ -72,11 +71,11 @@ export default function PokemonDetailsPage():JSX.Element {
                         <Stack gap={1}>
                             <div>
                                 <h3>Description</h3>
-                                <p><i>"{normalizeText(firstEnglishText)}"</i></p>
+                                <p><i>"{normalizeText(englishText)}"</i></p>
                             </div>
                             <div>
                                 <h3>Genus</h3>
-                                <p>{firstEnglishGenus}</p>
+                                <p>{englishGenus}</p>
                             </div>
                             <div>
                                 <h3>Types</h3>
@@ -92,6 +91,10 @@ export default function PokemonDetailsPage():JSX.Element {
             </Container>
         )
     } else{
-        return(<p>No Pokemon Selected</p>)
+        return(
+            <Container className="text-center my-5">
+                <p>Missing Pokémon identifier.</p>
+            </Container>
+        )
     }
 }

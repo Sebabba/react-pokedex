@@ -3,7 +3,7 @@ import { Pokemon } from "../utils/types";
 import { getPokemon } from "../api/pokemonApi";
 
 export function usePokemon(pokemonId:string | undefined) {
-    const [pokemon, setPokemon] = useState<Pokemon>();
+    const [pokemon, setPokemon] = useState<Pokemon | null>();
     const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -22,6 +22,13 @@ export function usePokemon(pokemonId:string | undefined) {
             } finally {
                 setLoading(false);
             }
+        }
+
+        if(!pokemonId){
+            setError(null);
+            setLoading(false);
+            setPokemon(null);
+            return;
         }
 
         fetchPokemon();
